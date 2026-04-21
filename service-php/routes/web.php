@@ -16,3 +16,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/test-db', function () {
+    try {
+        $client = new MongoDB\Client("mongodb://127.0.0.1:27017");
+        $db = $client->yubu_db;
+        return response()->json(['status' => 'MongoDB connected!']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+});
