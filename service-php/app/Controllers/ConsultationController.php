@@ -29,7 +29,7 @@ class ConsultationController extends ResourceController
             return $this->fail('Invalid input', 400);
         }
 
-        $result = $model->insert($data);
+        $result = $model->insertOne($data);
 
         return $this->respondCreated([
             'status' => 'success',
@@ -44,7 +44,7 @@ class ConsultationController extends ResourceController
         }
 
         $model = new ConsultationHistory();
-        $model->delete($id);
+        $model->deleteOne($id);
 
         return $this->respondDeleted([
             'status' => 'deleted'

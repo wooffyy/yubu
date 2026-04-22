@@ -5,7 +5,7 @@ namespace App\Models;
 use Config\Mongo;
 use MongoDB\BSON\ObjectId;
 
-class ConsultationHistory {
+class ConsultationHistory extends \CodeIgniter\Model {
     protected $collection;
 
     public function __construct() {
@@ -17,7 +17,7 @@ class ConsultationHistory {
         return $this->collection->find()->toArray();
     }
 
-    public function insert($data) {
+    public function insertOne($data) {
         $data['template_id'] = $data['template_id'] ?? null;
         $data['metadata'] = $data['metadata'] ?? [];
         $data['created_at'] = $data['created_at'] ?? date('c');
@@ -39,6 +39,12 @@ class ConsultationHistory {
 
     public function findById($id) {
         return $this->collection->findOne([
+            '_id' => new ObjectId($id)
+        ]);
+    }
+
+    public function deleteOne($id) {
+        return $this->collection->deleteOne([
             '_id' => new ObjectId($id)
         ]);
     }

@@ -15,11 +15,18 @@ class TemplateController extends ResourceController {
         return $this->respond($data);
     }
 
+    public function show($id = null) {
+        $model = new DiagnosisTemplate();
+        $data = $model->findById($id);
+
+        return $this->respond($data);
+    }
+
     public function create() {
         $model = new DiagnosisTemplate();
         $data =  $this->request->getJSON(true);
 
-        $result = $model->insert($data);
+        $result = $model->insertOne($data);
 
         return $this->respondCreated([
             'status'=>'success',
@@ -31,7 +38,7 @@ class TemplateController extends ResourceController {
         $model = new DiagnosisTemplate();
         $data =  $this->request->getJSON(true);
 
-        $result = $model->update($id, $data);
+        $result = $model->updateOne($id, $data);
 
         return $this->respond([
             'status' => 'updated'
@@ -40,7 +47,7 @@ class TemplateController extends ResourceController {
 
     public function delete($id = null) {
         $model = new DiagnosisTemplate();
-        $model->delete($id);
+        $model->deleteOne($id);
 
         return $this->respondDeleted([
             'status' => 'deleted'

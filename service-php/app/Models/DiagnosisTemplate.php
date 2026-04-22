@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Config\Mongo;
 
-class DiagnosisTemplate {
+class DiagnosisTemplate extends \CodeIgniter\Model {
     protected $collection;
 
     public function __construct() {
@@ -22,7 +22,20 @@ class DiagnosisTemplate {
         ]);
     }
 
-    public function insert($data) {
+    public function updateOne($id, $data) { 
+        return $this->collection->updateOne(
+            ['_id' => new \MongoDB\BSON\ObjectId($id)],
+            ['$set' => $data]
+        );
+    }
+
+    public function insertOne($data) {
         return $this->collection->insertOne($data);
+    }
+
+    public function deleteOne($id) {
+        return $this->collection->deleteOne([
+            '_id' => new \MongoDB\BSON\ObjectId($id)
+        ]);
     }
 }
