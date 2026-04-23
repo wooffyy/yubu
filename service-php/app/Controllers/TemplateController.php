@@ -46,11 +46,17 @@ class TemplateController extends ResourceController {
     }
 
     public function delete($id = null) {
-        $model = new DiagnosisTemplate();
-        $model->deleteOne($id);
+    $model = new DiagnosisTemplate();
+    $result = $model->deleteOne($id);
 
-        return $this->respondDeleted([
-            'status' => 'deleted'
+    if ($result->getDeletedCount() === 0) {
+        return $this->response->setStatusCode(404)->setJSON([
+            'error' => 'Consultation not found'
         ]);
     }
+
+    return $this->respondDeleted([
+        'status' => 'deleted'
+    ]);
+}
 }

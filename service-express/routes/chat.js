@@ -26,7 +26,9 @@ router.post('/', async (req, res) => {
 
     try {
         const response = await callAI(messages)
-        const result = JSON.parse(response)
+        let result
+        try { result = JSON.parse(response) } 
+        catch { result = { reply: response } }
         
         try {
             await saveChat({

@@ -38,16 +38,22 @@ class ConsultationController extends ResourceController
     }
 
     public function delete($id = null)
-    {
-        if (!$id) {
-            return $this->fail('ID is required', 400);
-        }
+{
+    if (!$id) {
+        return $this->fail('ID is required', 400);
+    }
 
-        $model = new ConsultationHistory();
-        $model->deleteOne($id);
+    $model = new ConsultationHistory();
+    $result = $model->deleteOne($id);
 
-        return $this->respondDeleted([
-            'status' => 'deleted'
+    if ($result->getDeletedCount() === 0) {
+        return $this->response->setStatusCode(404)->setJSON([
+            'error' => 'Consultation not found'
         ]);
     }
+
+    return $this->respondDeleted([
+        'status' => 'deleted'
+    ]);
+}
 }

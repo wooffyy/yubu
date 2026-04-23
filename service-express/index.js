@@ -7,9 +7,9 @@ const port = process.env.PORT || 3001
 app.use(express.json())
 
 app.get('/health', (req, res) => { res.send('OK') })
-app.use('/ai/diagnose', require('./routes/diagnose'))
-app.use('/ai/chat', require('./routes/chat'))
-app.use('/ai/consult-with-template', require('./routes/withTemplate'))
+app.use('/diagnose', require('./routes/diagnosis'))
+app.use('/chat', require('./routes/chat'))
+app.use('/consult-with-template', require('./routes/withTemplate'))
 
 app.listen(port, () => {
     console.log(`Server berjalan di ${port}`)
