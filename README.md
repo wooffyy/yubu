@@ -383,4 +383,3 @@ Semua request dikirim ke **http://localhost:3000**.
 - Perlu diperhatikan bahwa endpoint yang melibatkan pemanggilan LLM (`/ai/diagnose, /ai/chat, /ai/consult-with-template, /ai/diagnose/refine`) sesekali dapat mengembalikan response `500` atau `503`. Hal ini **bukan merupakan bug pada aplikasi**, melainkan disebabkan oleh pembatasan rate limit pada model free tier yang digunakan melalui OpenRouter API. Menunggu beberapa saat sebelum mencoba kembali umumnya menyelesaikan masalah ini.
 - Gateway menggunakan **rate limiter**: maksimal 20 request per IP per 15 menit untuk semua endpoint `/ai/*`.
 - MongoDB database name yang digunakan: `yubu_db`.
-```
