@@ -18,6 +18,7 @@ router.post('/', async (req, res) => {
         template = await axios.get(`${process.env.SERVICE2_URL}/templates/${template_id}`)
     } catch (err) {
         console.log('Service 2 error:', err.message)
+        if (err.response?.status === 404) return res.status(404).send('Template not found!')
         console.log('Service 2 response:', err.response?.status, err.response?.data)
         return res.status(503).json({ error: 'Gagal menghubungi Service 2' })
     }

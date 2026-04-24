@@ -14,6 +14,12 @@ async function callAI(messages) {
             }
         }
     )
+
+    if (!response.data?.choices?.length) {
+        console.log('OpenRouter response:', JSON.stringify(response.data))
+        throw new Error('No choices returned from OpenRouter')
+    }
+    
     const raw = response.data.choices[0].message.content
     return raw.replace(/```json/g, '').replace(/```/g, '').trim()
 }
